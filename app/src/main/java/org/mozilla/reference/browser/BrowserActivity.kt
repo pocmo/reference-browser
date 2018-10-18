@@ -14,6 +14,7 @@ import mozilla.components.browser.tabstray.BrowserTabsTray
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.tabstray.TabsTray
 import mozilla.components.feature.intent.IntentProcessor
+import mozilla.components.service.sync.places.Places
 import mozilla.components.support.utils.SafeIntent
 import org.mozilla.reference.browser.ext.components
 
@@ -37,6 +38,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
                 return
             }
         }
+
+        val places = Places()
 
         super.onBackPressed()
     }

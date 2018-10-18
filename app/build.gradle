@@ -82,6 +82,8 @@ dependencies {
     implementation Deps.mozilla_feature_toolbar
     implementation Deps.mozilla_feature_tabs
 
+    implementation "org.mozilla.components:sync-places:0.26.0-SNAPSHOT"
+
     implementation Deps.mozilla_ui_autocomplete
 
     implementation Deps.mozilla_support_utils
