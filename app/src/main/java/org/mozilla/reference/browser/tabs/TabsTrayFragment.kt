@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_tabstray.tabsPanel
 import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
+import mozilla.components.browser.session.Session
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import org.mozilla.reference.browser.R
@@ -57,6 +58,11 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     }
 
     private fun closeTabsTray() {
+        if (requireComponents.core.sessionManager.sessions.isEmpty()) {
+            // All tabs are closed. Let's open a default tab.
+            requireComponents.core.sessionManager.add(Session("https://www.example.org"))
+        }
+
         activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.container, BrowserFragment.create())
             commit()
