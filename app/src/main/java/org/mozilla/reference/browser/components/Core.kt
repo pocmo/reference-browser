@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import mozilla.components.browser.icons.BrowserIcons
+import mozilla.components.browser.session.Session
 import mozilla.components.browser.session.SessionManager
 import mozilla.components.browser.session.storage.SessionStorage
 import mozilla.components.browser.state.store.BrowserStore
@@ -90,7 +91,15 @@ class Core(private val context: Context) {
         val sessionStorage = SessionStorage(context, engine)
 
         SessionManager(engine, store).apply {
-            sessionStorage.restore()?.let { snapshot -> restore(snapshot) }
+            val snapshot = sessionStorage.restore()
+
+            if (snapshot == null || snapshot.isEmpty()) {
+                // We loaded the list of tabs from the last time. There are none. So let's
+                // open our default tab!
+                add(Session("https://www.example.org"))
+            } else {
+                restore(snapshot)
+            }
 
             sessionStorage.autoSave(this)
                 .periodicallyInForeground(interval = 30, unit = TimeUnit.SECONDS)
