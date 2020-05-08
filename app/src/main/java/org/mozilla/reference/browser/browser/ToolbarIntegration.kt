@@ -135,7 +135,9 @@ class ToolbarIntegration(
             DisplayToolbar.Indicators.TRACKING_PROTECTION
         )
         toolbar.display.displayIndicatorSeparator = true
-        toolbar.display.menuBuilder = menuBuilder
+
+        // Do not show any menu!
+        // toolbar.display.menuBuilder = menuBuilder
 
         toolbar.display.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.hint = context.getString(R.string.toolbar_hint)
